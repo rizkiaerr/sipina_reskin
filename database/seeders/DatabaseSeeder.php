@@ -101,6 +101,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(WbpSeeder::class);
+        // $this->call(BookSeeder::class);
         // Post::factory(20)->create();
 
         // Wbp::factory(30)->create();

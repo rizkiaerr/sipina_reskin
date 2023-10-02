@@ -15,8 +15,7 @@ class Tracks extends Migration
     {
         Schema::create('Tracks', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('book_id');
-            $table->foreignId('kode_resi');
+            $table->string('kode_resi');
             $table->string('titipan_barang')->nullable();
             $table->string('posisi_titipan')->nullable();
             $table->timestamps();

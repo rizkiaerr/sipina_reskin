@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class TrackAdminController extends Controller
 {
@@ -17,11 +15,10 @@ class TrackAdminController extends Controller
      */
     public function index()
     {
-        $book = DB::table('books')->paginate(20);
-
+        $listBook = DB::table('books')->paginate(20);
         return view('dashboard/resi_admin/index',
         [
-            'book' => $book,
+            'listBook' => $listBook,
             'counterTahanan' => 0,
             'counterNarapidana' => 0
         ]);
@@ -54,20 +51,24 @@ class TrackAdminController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,Book  $book)
+    public function show(Request $request)
     {
         $Key = $request->path();
-        $Key = substr($Key,-8);
+        $Key = substr($Key, -8);
         $requestData = DB::table('books')
+        // ->where('tracks.kode_resi',$request['kode_resi'])
         ->join('tracks','books.kode_resi','=','tracks.kode_resi')
         ->where('books.kode_resi', $Key)
+        // ->where('.kode_resi', $request['kode_resi'])
         ->orderBy('tracks.created_at','asc')->get();
+        // dd($requestData);
         return view('/dashboard/resi_admin/show',[
         'title' => 'Cek Resi',
         'active' => 'Cek Resi',
         'kode_resi' => $requestData,
         'counterTahanan' => 0,
-        'counterNarapidana' => 0
+        'counterNarapidana' => 0,
+        // 'book' => $book
         ]);
     }
 
@@ -77,22 +78,9 @@ class TrackAdminController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book, Request $request)
+    public function edit(Book $book)
     {
-        $Key = $request->path();
-        $Key = substr($Key, -13,8);
-        $user = DB::table('books')
-        ->join('tracks','books.kode_resi','=','tracks.kode_resi')
-        ->where('books.kode_resi', $Key)
-        ->orderBy('tracks.created_at','asc')->get();
-        // dd($user);
-        return view('/dashboard/resi_admin/edit',[
-            'title' => 'Cek Resi',
-            'active' => 'Cek Resi',
-            'counterTahanan' => 0,
-            'counterNarapidana' => 0,
-            'user' => $user
-            ]);
+        //
     }
 
     /**
@@ -104,25 +92,7 @@ class TrackAdminController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $updateBook = $request->validate([
-            'kode_resi' => 'required',
-            'nama_pengunjung' => 'required',
-            'nik_pengunjung' => 'required',
-            'tanggal_kunjungan' => 'required',
-            'jumlah_pengunjung' => 'required',
-            'status_wbp' => 'required',
-            'nama_wbp' => 'required',
-        ]);
-
-        // dd($request['kode_resi']);
-        $updateTrack = $request->validate([
-            'kode_resi' => 'required',
-            'titipan_barang' => 'nullable'
-        ]);
-
-        Book::where('kode_resi', $request['kode_resi'])->update($updateBook);
-        Track::where('kode_resi', $request['kode_resi'])->update($updateTrack);
-        return redirect('/dashboard/resi_admin/')->with('success','Update berhasil!');
+        //
     }
 
     /**
@@ -131,15 +101,10 @@ class TrackAdminController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $book)
+    public function destroy(Request $request)
     {
-        $Key = $book->path();
-        $Key = substr($Key, -8);
-        // dd($Key);
-        DB::table('books')->where('kode_resi', $Key)->delete();
-        DB::table('tracks')->where('kode_resi', $Key)->delete();
-        // Book::destroy($book->book_id);
-        // $book = Book::destroy($book->id)->get();
-        return redirect('/dashboard/resi_admin')->with('success','Kegiatan telah dihapus!');
+    $book = Book::find(2);
+        dd($book);
+        return redirect('/dashboard/resi_admin/')->with('success','Kegiatan telah dihapus!');
     }
 }

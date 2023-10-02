@@ -15,7 +15,7 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->integer('kode_resi');
+            $table->string('kode_resi');
             $table->string('nama_pengunjung');
             $table->string('nik_pengunjung');
             $table->integer('jumlah_pengunjung');

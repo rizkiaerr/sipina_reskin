@@ -13,7 +13,7 @@
   </div>
   @endif
 
-  <div class="table-responsive col-md-11">
+  <div class="col-md-11">
     {{-- <a href="/dashboard/wbp/create" class="btn btn-primary">Search</a> --}}
     <table class="table">
         <thead class="thead">
@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach ( $listBook as $list )
+        @foreach ( $book as $list )
             <tr>
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td>{{ $list->nama_wbp }}</td>
@@ -56,6 +56,7 @@
                               <button class="dropdown-item " onclick="return confirm('Apa anda yakin untuk mencetak Tiket?')">Cetak
                             </form>
                             <form action="/dashboard/resi_admin/{{ $list->kode_resi }}" method="post" class="dropdown-item">
+                            <input type="hidden" name="book_id" id="book_id" value="{{ $list->id }}">
                               @method('delete')
                               @csrf
                               <button class="dropdown-item " onclick="return confirm('Apa anda yakin untuk menghapus data ini?')">Hapus
@@ -68,7 +69,7 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
-      {{-- {{ $listBook->links() }} --}}
+      {{ $book->links() }}
     </div>
   </div>
 </div>

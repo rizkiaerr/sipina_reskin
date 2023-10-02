@@ -12,11 +12,17 @@ class Book extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function books(){
+    public function getRouteKeyName(){
+        return 'kode_resi';
+    }
+
+    protected $hidden = ['kode_resi'];
+
+    public function book(){
         return $this->hasMany(Wbp::class);
     }
 
-    public function tracks(){
-        return $this->hasMany(Track::class);
+    public function track(){
+        return $this->hasMany(Track::class,'kode_resi');
     }
 }

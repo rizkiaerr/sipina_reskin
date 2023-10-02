@@ -21,7 +21,7 @@ class Track extends Model
 
     protected $hidden = ['kode_resi'];
 
-    public function books(){
-        return $this->hasOne(Book::class);
+    public function book(){
+        return $this->belongsTo(Book::class,'kode_resi');
     }
 }

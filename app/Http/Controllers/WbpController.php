@@ -182,8 +182,11 @@ class WbpController extends Controller
      */
     public function destroy(Wbp $wbp)
     {
-        dd($wbp);
         Wbp::destroy($wbp->id);
+        DB::table('kegiatans')->where('wbp_id', $wbp->id)->delete();
+        DB::table('kesehatans')->where('wbp_id', $wbp->id)->delete();
+        DB::table('pelanggarans')->where('wbp_id', $wbp->id)->delete();
+        DB::table('statuses')->where('wbp_id', $wbp->id)->delete();
         return redirect('/dashboard/wbp')->with('success','Data WBP telah dihapus!');
     }
 }

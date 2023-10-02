@@ -84,7 +84,6 @@ Route::resource('/dashboard/pelanggaran', PelanggaranController::class)->middlew
 Route::resource('/dashboard/status', StatusController::class)->middleware('auth','admin');
 
 Route::resource('/book/create',BookController::class)->middleware('guest');
-Route::resource('/book/create_titipan',BookController::class)->middleware('guest');
 Route::get('generate-pdf', [PDFController::class,'generatePDF'])->middleware('guest');
 Route::post('print-pdf', [PDFController::class,'printPDF'])->middleware('admin');
 // Route::get('/cek_penitipan', [TrackController::class,'show']);

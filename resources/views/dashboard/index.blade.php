@@ -149,10 +149,10 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-center">
-                        {{ $listBook->links() }}
-                      </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    {{ $listBook->links() }}
+                  </div>
             </div>
 
             <!-- Pie Chart -->

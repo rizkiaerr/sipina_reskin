@@ -43,7 +43,7 @@
                                     <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> Dashboard</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <form action="/logout" method="post">
+                                        <form action="/logout" method="get">
                                             @csrf
                                             <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout </button>
                                         </form>
